@@ -1,6 +1,9 @@
 ## define pydantic models for requests here
 
 from pydantic import BaseModel
+from typing import List, Optional
+
+from backend.auth.response_models import PaymentResponse
 
 
 class Response(BaseModel):
@@ -25,3 +28,31 @@ class SignInResponse(Response):
 class SignUpResponse(Response):
       pass
     
+
+
+class ItemRequest:
+    id: int
+    user_id: int
+    title: str
+    description: str
+    tags: List[str]
+
+class Item(ItemRequest):
+    short_description : str
+    delivery_type: str
+    image : List[str]
+
+class ItemResponse(Response):
+    item: Item
+
+class ItemRequestResponse(Response):
+    items: ItemRequest
+
+class ItemsResponse(Response):
+    items: List[Item]
+
+class ItemRequestsResponse(Response):
+    items: List[ItemRequest]
+
+class PaymentsResponse(Response, PaymentResponse):
+    username: str
